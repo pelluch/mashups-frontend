@@ -19,6 +19,9 @@ group :production do
 
   # Use jquery as the JavaScript library
   gem 'jquery-rails', '~> 3.1.2'
+
+  gem 'rails_12factor', '~> 0.0.2'
+  
 end
 
 group :doc do
