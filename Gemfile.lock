@@ -32,6 +32,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
     builder (3.2.2)
     byebug (3.4.2)
       columnize (~> 0.8)
@@ -165,6 +167,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (~> 4.0.0)
+  bootstrap-sass (~> 3.2.0.2)
   dotenv-rails (~> 0.11.1)
   factory_girl_rails (~> 4.4.1)
   faker (~> 1.4.3)
