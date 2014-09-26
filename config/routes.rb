@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+
+  resources :sources, only[:show, :index]
+
+  resources :mash_ups
+
+  resources :users
+
+  root 'static_pages#welcome'
+
+  get 'home' => 'static_pages#home'
+
+  get 'about' => 'static_pages#about'
+
+  get 'contacts' => 'static_pages#contacts'
+
+  get 'configuration' => 'static_pages#configuration'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

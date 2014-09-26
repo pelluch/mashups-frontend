@@ -13,12 +13,12 @@ gem 'bootstrap-sass', '~> 3.2.0.2'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 2.5.3'
 
+# Use jquery as the JavaScript library
+gem 'jquery-rails', '~> 3.1.2'
+
 group :production do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', '~> 0.12.1'
-
-  # Use jquery as the JavaScript library
-  gem 'jquery-rails', '~> 3.1.2'
 
   gem 'rails_12factor', '~> 0.0.2'
   
