@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   resources :sources
 
+  #, only[:show, :index]
+
+
   resources :mash_ups
 
   resources :users
