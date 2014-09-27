@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :sources, only[:show, :index]
+  resources :sources
 
   resources :mash_ups
 
