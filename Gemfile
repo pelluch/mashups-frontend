@@ -16,10 +16,10 @@ gem 'uglifier', '~> 2.5.3'
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '~> 3.1.2'
 
+gem 'tzinfo-data'
+
 group :production do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '~> 0.12.1'
-
   gem 'rails_12factor', '~> 0.0.2'
   
 end
@@ -50,5 +50,5 @@ end
 gem 'rack-timeout', '~> 0.0.4'
 
 group :production do
-  gem 'unicorn', '~> 4.8.3'
+  #gem 'unicorn', '~> 4.8.3'
 end
