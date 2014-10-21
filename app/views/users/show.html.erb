@@ -4,7 +4,7 @@
 		<h1>
 			<%= @user.name %>
 			<small>
-				<%= @user.email %>
+				<%= @user.mail %>
 			</small>
 		</h1>
 	</div>
@@ -17,5 +17,13 @@
 		</div>
 	</div>
 
-	<%= link_to 'Edit', edit_user_path(@user) %>
+	<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
+
+</div>
+<div class="container">
+	<div class="row">
+		<% @user.mashups.each do |m| %>
+			<%=  render 'mashups/grid', mu: m %>
+		<% end %>
+	</div>
 </div>
