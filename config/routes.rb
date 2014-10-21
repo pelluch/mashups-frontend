@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :sources
 
-  resources :mash_ups
+  resources :mashups
 
   resources :users
 
