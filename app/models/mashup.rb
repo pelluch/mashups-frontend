@@ -1,8 +1,18 @@
 require 'active_resource'
 
-class MashUp < ActiveResource::Base
-	self.site = "#"
+class Mashup < ActiveResource::Base
+	self.site = "http://localhost:3000"
   # self.site = "http://api.people.com:3000"
+
+  belongs_to :user
+
+  schema do |t|
+    t.string   "parameters"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   def search
   	#Incluye un termino a la busqueda

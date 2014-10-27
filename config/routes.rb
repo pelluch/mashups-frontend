@@ -2,16 +2,11 @@ Rails.application.routes.draw do
 
   resources :sources
 
-  #, only[:show, :index]
-
-
-  resources :mash_ups
+  resources :mashups
 
   resources :users
 
   root 'static_pages#welcome'
-
-  get 'home' => 'static_pages#home'
 
   get 'about' => 'static_pages#about'
 

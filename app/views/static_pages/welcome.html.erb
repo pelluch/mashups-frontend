@@ -1,4 +1,4 @@
-<div class="center hero-unit">
+<div class="center jumbotron">
   <h1>Masher!</h1>
 
   <h2>
@@ -9,6 +9,6 @@
   <%= link_to "Sign up now!", new_user_path, class: "btn btn-large btn-primary" %>
   </span>
   <span>
-  <%= link_to "Log in!", home_path, class: "btn btn-large btn-primary" %>
+  <%= link_to "Log in!", user_path(User.find(1)), class: "btn btn-large btn-primary" %>
   </span>
 </div>
