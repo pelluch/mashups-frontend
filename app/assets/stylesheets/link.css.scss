@@ -1,0 +1,48 @@
+// Place all the styles related to the Sources controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.source {
+  box-shadow: 3px 3px 3px #ccc;
+  border-radius: 5px;
+  margin: 2px;
+  overflow: hidden;
+  background-color: #ddf;
+}
+
+.source a {
+  color: #fff;
+}
+
+.source img {
+  width: 20px;
+  border-radius: 3px;
+}
+
+#source-1 {
+  border: 2px solid #33b;
+}
+#source-1 .source-title {
+  background-color: #33b;
+}
+
+#source-2 {
+  border: 2px solid #4af;
+}
+#source-2 .source-title {
+  background-color: #4af;
+}
+
+#source-3 {
+  border: 2px solid #447;
+}
+#source-3 .source-title {
+  background-color: #447;
+}
+
+#source-4 {
+  border: 2px solid #115;
+}
+#source-4 .source-title {
+  background-color: #115;
+}

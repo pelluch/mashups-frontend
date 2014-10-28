@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :sources
-
   resources :mashups
 
   resources :users
+
+  resources :links
+
+  resources :link_sources
+
+  resources :keywords
 
   root 'static_pages#welcome'
 
