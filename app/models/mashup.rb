@@ -6,6 +6,7 @@ class Mashup < ActiveResource::Base
 
   belongs_to :user
   has_many :links
+  has_many :keywords
 
   schema do |t|
     t.string   "parameters"

@@ -7,16 +7,57 @@
 
 .mashup-thumbnail {
   margin: 10px -5px 2px -5px;
+  padding: 5px;
   border: 1px solid #eee;
   border-radius: 10px;
   box-shadow: 3px 3px 5px #aaa;
   text-align: center;
 }
+
 .mashup-thumbnail:hover {
   position: relative;
   left: -2px;
   top: -2px;
   border-radius: 10px;
   box-shadow: 3px 3px 8px #999;
+}
+
+.mashup-thumbnail-ref:hover {
   text-decoration: none;
+}
+
+.keyword-1 {
+  font-size: 1em;
+}
+
+.keyword-2 {
+  font-size: 1.5em;
+}
+
+.keyword-3 {
+  font-size: 2em;
+}
+
+.keyword-4 {
+  font-size: 2.5em;
+}
+
+.keyword-5 {
+  font-size: 3em;
+}
+
+.keyword-6 {
+  font-size: 3.5em;
+}
+
+.keyword-7 {
+  font-size: 4em;
+}
+
+.keyword-8 {
+  font-size: 4.5em;
+}
+
+.keyword-9 {
+  font-size: 5em;
 }

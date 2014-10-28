@@ -23,21 +23,21 @@
   </div>
   <div class="panel-body">
     <div class="row well">
-    		Aqui va un cloud tag
+		<% @mashup.keywords.each do |kw|%>
+			<span class=<%= "keyword-"+kw.value.to_s %>><%= link_to kw.keyword, '#' %></span>
+		<% end %>
     </div>
     <div class="row well">
       <% for i in 1..4 %>
       	<div class="col-lg-3">
       	<!-- TODO no funciona y no se porque -->
-	      <% Link.all(conditions: [mashup_id: @mashup_id, link_source_id: i]).each do |link| %>
+	      <% Link.all(conditions: [mashup_id: @mashup.id, link_source_id: i]).each do |link| %>
+	      	<% if link.link_source_id == i then %>
 	    	<%= render 'links/show' , link: link %>
+	    	<% end %>
 		  <% end %>
 		</div>
 	  <% end %>
     </div>
   </div>
 </div>
-
-
-<%= link_to 'Edit', edit_mashup_path(@mashup) %> |
-<%= link_to 'Back', mashups_path %>
