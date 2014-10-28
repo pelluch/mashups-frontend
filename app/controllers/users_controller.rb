@@ -3,7 +3,10 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
+    @users = Array.new
+    (json_params "user/users").first.last.each do |user|
+      @users << User.new(user)
+    end
   end
 
   # GET /users/1
@@ -49,7 +52,8 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      #@user = User.find(params[:id])
+      @user = User.new(json_params "user/users/#{params[:id]}")
     end
 
     # Only allow a trusted parameter "white list" through.

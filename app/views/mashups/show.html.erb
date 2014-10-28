@@ -5,21 +5,43 @@
 	  <div class="col-lg-2">
 	  	<h4><%= @mashup.name %></h4>
 	  </div>
-	  <div class="col-lg-10">
-	    <div class="input-group">
-	      <span class="input-group-btn">
-		    <% @mashup.params.each do |p| %>
-	          <%= link_to p, @mashup, class: "btn btn-default", type: "button" %>
-		  	<% end %>
-	      </span>
-	      <input type="text" class="form-control">
-	      <span class="input-group-btn">
-	        <button class="btn btn-default" type="button">Search</button>
-	      </span>
-	    </div><!-- /input-group -->
-	  </div><!-- /.col-lg-6 -->
+        <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
+		  <div class="col-lg-10">
+		    <div class="input-group form-inline">
+		      <span class="input-group-btn">
+
+		      	<% count = 0 %>
+			    <% @mashup.parameters.each do |p| %>
+
+		    	  <% count += 1 %>
+		    	  <% if count < 6 %>
+		          	<%= link_to p, mashup_path(@mashup.id), class: "btn btn-default", type: "button" %>
+		          <% else %>
+
+		          	<% if count == 6 %>
+		          		<button class="btn btn-default" type="button" data-toggle="dropdown">
+		          			...<span class="caret"></span>
+		          		</button>
+			        	<ul class="dropdown-menu" role="menu">
+			        <% end %>
+
+			          <li><a href="#"><%= p %></a></li>
+
+			        <% if count == @mashup.parameters.count %>
+			        	</ul>
+			        <% end %>
+
+	          	  <% end %>
+			  	<% end %>
+		      </span>
+		      <input type="text" name="mashup[new_param]" class="form-control">
+		      <span class="input-group-btn">
+	          	<button class="btn btn-default" type="submit">Search</button>
+		      </span>
+		    </div><!-- /input-group -->
+		  </div><!-- /.col-lg-6 -->
+      <% end %>
 	</div><!-- /.row -->
-	    
   </div>
   <div class="panel-body">
     <div class="row well">
@@ -30,10 +52,9 @@
     <div class="row well">
       <% for i in 1..4 %>
       	<div class="col-lg-3">
-      	<!-- TODO no funciona y no se porque -->
-	      <% Link.all(conditions: [mashup_id: @mashup.id, link_source_id: i]).each do |link| %>
+	      <% @mashup.links.each do |link| %>
 	      	<% if link.link_source_id == i then %>
-	    	<%= render 'links/show' , link: link %>
+	    		<%= render 'links/show' , link: link %>
 	    	<% end %>
 		  <% end %>
 		</div>

@@ -3,10 +3,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-  user = authenticate(params[:mail], params[:password])
+  user = authenticate(params[:email], params[:password])
   if user
-    session[:user_id] = user.first.id
-    redirect_to root_url, :notice => "Logged in!"
+    session[:user_id] = user.id
+    redirect_to root_url, :notice => session[:user_id].to_s + "Logged in!"
   else
     flash.now.alert = "Invalid email or password"
     render "new"
@@ -19,8 +19,21 @@ def destroy
 end
 
 private
+
+def users_all
+  users = Array.new
+  (json_params "user/users").first.last.each do |user|
+    users << User.new(user)
+  end
+  users
+end
+
 def authenticate (mail, password)
-    user= User.find(:all, :params => {:password=>password, :mail => mail})
+  user = User.new
+  users_all.each do |u|
+    #verificar tokens por que manda password_digest pero no password
+    user = u if u.mail == mail
+  end 
 
     if user
       user

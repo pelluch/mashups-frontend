@@ -1,7 +1,9 @@
-<%= link_to(mu, {class: "mashup-thumbnail-ref"}) do %>
+<%= link_to( mashup_path(mu.id), {class: "mashup-thumbnail-ref"}) do %>
 	<div class="mashup-thumbnail">
 	    <h2><%= mu.name %></h2>
-	    <strong>"<%= mu.parameters %>"</strong>
+	    <% mu.parameters.each do |parameter| %>
+	    	<strong><%= parameter %> </strong>
+	    <% end %>
 	    <p>Aqui se supone que va un thumbnail del mashup cuando vio por ultima vez o algo asi como informacion o lo que sea para identificarlo bien o si ha cambiado o algo</p>
     </div>
 <% end %>

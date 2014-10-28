@@ -10,6 +10,11 @@ gem 'activeresource', '~> 4.0.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass', '~> 3.2.0.2'
 
+gem 'httparty'
+
+# Making it easy to serialize models for client-side use
+gem 'active_model_serializers', '~> 0.9.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 2.5.3'
 

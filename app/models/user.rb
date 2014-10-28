@@ -10,7 +10,7 @@ class User < ActiveResource::Base
   schema do |t|
     t.string   "name"
     t.string   "mail"
-    t.string   "password_digest"
+    t.string   "password"
     t.string   "token"
     t.string   "provider"
     t.string   "uid"

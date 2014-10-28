@@ -3,7 +3,10 @@ class MashupsController < ApplicationController
 
   # GET /mashups
   def index
-    @mashups = Mashup.all
+    @mashups = Array.new
+    (json_params "mashup/mashups").first.last.each do |mashup|
+      @mashups << Mashup.new(mashup)
+    end
   end
 
   # GET /mashups/1
@@ -32,11 +35,9 @@ class MashupsController < ApplicationController
 
   # PATCH/PUT /mashups/1
   def update
-    if @mashup.update(mashup_params)
-      redirect_to @mashup, notice: 'Mash up was successfully updated.'
-    else
-      render :edit
-    end
+    @mashup.parameters << mashup_params[:new_param]
+    mashup = @mashup.as_json(include: {:keywords => {}, :links => {include: {:link_source => {}}} })
+    redirect_to mashup_path(mashup.id), notice: 'Mash up was successfully updated.'
   end
 
   # DELETE /mashups/1
@@ -48,11 +49,12 @@ class MashupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mashup
-      @mashup = Mashup.find(params[:id])
+      #@mashup = Mashup.find(params[:id])
+      @mashup = Mashup.new(json_params "mashup/mashups/#{params[:id]}")
     end
 
     # Only allow a trusted parameter "white list" through.
     def mashup_params
-      params[:mashup]
+      params.require(:mashup).permit(:parameters, :name, :new_param)
     end
 end
