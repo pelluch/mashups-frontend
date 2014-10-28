@@ -2,9 +2,18 @@
   <div class="container-fluid">
     <%= link_to "Masher!", root_path, class: "navbar-brand" %>
       <ul class="nav navbar-nav nav-pillss">
-        <li><%= link_to "Home",    user_path(User.find(1)) %></li>
+        <li><%= link_to "Home",    root_path %></li>
         <li><%= link_to "Settings",    configuration_path %></li>
-        <li><%= link_to "Log out", root_path %></li>
+        
+        <% if current_user %>
+          <li>Hello <%= current_user.first.name %>!! </li>
+          <li><%= link_to "Log out", log_out_path %></li>
+        <% else %>
+          <li><%= link_to "Sign up", sign_up_path %></li> or
+          <li><%= link_to "log in", log_in_path %> </li>
+        <% end %>        
+            
+
       </ul>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
