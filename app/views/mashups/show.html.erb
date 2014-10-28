@@ -1,4 +1,43 @@
 <p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+	  <div class="col-lg-2">
+	  	<h4><%= @mashup.name %></h4>
+	  </div>
+	  <div class="col-lg-10">
+	    <div class="input-group">
+	      <span class="input-group-btn">
+		    <% @mashup.params.each do |p| %>
+	          <%= link_to p, @mashup, class: "btn btn-default", type: "button" %>
+		  	<% end %>
+	      </span>
+	      <input type="text" class="form-control">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button">Search</button>
+	      </span>
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+	    
+  </div>
+  <div class="panel-body">
+    <div class="row well">
+    		Aqui va un cloud tag
+    </div>
+    <div class="row well">
+      <% for i in 1..4 %>
+      	<div class="col-lg-3">
+      	<!-- TODO no funciona y no se porque -->
+	      <% Link.all(conditions: [mashup_id: @mashup_id, link_source_id: i]).each do |link| %>
+	    	<%= render 'links/show' , link: link %>
+		  <% end %>
+		</div>
+	  <% end %>
+    </div>
+  </div>
+</div>
+
 
 <%= link_to 'Edit', edit_mashup_path(@mashup) %> |
 <%= link_to 'Back', mashups_path %>

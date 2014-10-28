@@ -5,6 +5,7 @@ class Mashup < ActiveResource::Base
   # self.site = "http://api.people.com:3000"
 
   belongs_to :user
+  has_many :links
 
   schema do |t|
     t.string   "parameters"
@@ -12,6 +13,10 @@ class Mashup < ActiveResource::Base
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  def params
+    self.parameters.split(' ')
   end
 
   def search

@@ -13,3 +13,118 @@
  *= require_tree .
  *= require_self
  */
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+body {
+  padding-top: 60px;
+  height: 100%;
+}
+
+.wrapper {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 80px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+
+/* footer */
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 97%;
+  margin: auto;
+  margin: 10px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #999;
+}
+
+footer a {
+  color: #555;
+}
+
+footer a:hover {
+  color: #222;
+}
+
+footer small {
+  float: left;
+}
+
+footer ul {
+  float: right;
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+
+.source {
+  box-shadow: 3px 3px 3px #ccc;
+  border-radius: 5px;
+  margin: 2px;
+  overflow: hidden;
+}
+
+.source img {
+  width: 20px;
+  border-radius: 3px;
+}
+
+#source-1 {
+  background-color: #ddf;
+  border: 2px solid #33b;
+}
+#source-1 a {
+  color: #fff;
+}
+#source-1 .source-title {
+  background-color: #33b;
+}
+
+#source-2 {
+  background-color: #ddf;
+  border: 2px solid #4af;
+}
+#source-2 a {
+  color: #fff;
+}
+#source-2 .source-title {
+  background-color: #4af;
+}
+
+#source-3 {
+  background-color: #ddf;
+  border: 2px solid #447;
+}
+#source-3 a {
+  color: #fff;
+}
+#source-3 .source-title {
+  background-color: #447;
+}
