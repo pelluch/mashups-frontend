@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   get 'log_in' => 'sessions#new', :as => 'log_in'
 
   get 'log_out' => 'sessions#destroy', :as => 'log_out'
@@ -13,6 +14,13 @@ Rails.application.routes.draw do
   resources :users
 
   resources :sessions
+
+  resources :links
+
+  resources :link_sources
+
+  resources :keywords
+
 
   root 'static_pages#welcome'
 
