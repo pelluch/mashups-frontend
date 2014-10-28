@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :destroy]
 
   # GET /users
   def index
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to root_url, notice: 'Signed Up!'
     else
       render :new
     end
@@ -32,7 +32,8 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    @user = User.new(user_params)
+    if @user.update
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render :edit

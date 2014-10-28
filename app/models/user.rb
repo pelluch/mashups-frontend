@@ -18,8 +18,8 @@ class User < ActiveResource::Base
     t.datetime "updated_at"
   end
 
+  
 
-  def authenticate
-  	# Verifica al usuario
-  end
+
+  
 end
