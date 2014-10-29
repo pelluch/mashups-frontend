@@ -2,10 +2,16 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-	  <div class="col-lg-2">
-	  	<h4><%= @mashup.name %></h4>
-	  </div>
-        <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
+      <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
+	    <div class="col-lg-2">
+	      <%if @mashup.id == current_user.mashup_id %>
+	  	    <div class="input-group form-inline">
+	  	  	  <%= text_field_tag 'mashup[name]', @mashup.name, placeholder: "Enter Title", class: "form-control" %>
+	  	    </div>
+	  	  <% else %>
+	  	    <h4><%= @mashup.name %></h4>
+	  	  <% end %>
+	    </div>
 		  <div class="col-lg-10">
 		    <div class="input-group form-inline">
 		      <span class="input-group-btn">
@@ -39,10 +45,14 @@
 			<span class=<%= "keyword-"+kw.value.to_s %>><%= link_to kw.keyword, '#' %></span>
 		<% end %>
     </div>
-    <div class="well btn-group btn-group-justified">
-		<%= link_to "Save", '#', class: "btn btn-large btn-primary" %>
-		<%= link_to 'Destroy', mashup_path(@mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
-    </div>
+    <% if current_user.id == @mashup.user_id %>
+	    <div class="well btn-group btn-group-justified">
+	      <%if @mashup.id == current_user.mashup_id %>
+			<%= link_to "Save", mashups_path, method: :create, class: "btn btn-large btn-primary" %>
+		  <% end %>
+			<%= link_to 'Destroy', mashup_path(@mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
+	    </div>
+    <% end %>
     <div class="row well">
       <% for i in 1..4 %>
       	<div class="col-lg-3">

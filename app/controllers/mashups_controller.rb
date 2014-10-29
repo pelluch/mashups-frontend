@@ -25,19 +25,15 @@ class MashupsController < ApplicationController
 
   # POST /mashups
   def create
-    @mashup = Mashup.new(mashup_params)
+    @mashup = Mashup.new(json_create_mashup)
 
-    if @mashup.save
-      redirect_to @mashup, notice: 'Mash up was successfully created.'
-    else
-      render :new
-    end
+    redirect_to mashup_path(@mashup.id)
   end
 
   # PATCH/PUT /mashups/1
   def update
-    @mashup.parameters.push mashup_params[:new_param]
-    mashup = Mashup.new(json_update_mashup @mashup.id, {parameters: @mashup.parameters})
+    @mashup.parameters.push mashup_params[:new_param] if mashup_params[:new_param].length > 0
+    mashup = Mashup.new(json_update_mashup @mashup.id, {parameters: @mashup.parameters, name: mashup_params[:name]})
     redirect_to mashup_path(mashup.id)
   end
 

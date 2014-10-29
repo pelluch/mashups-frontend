@@ -16,6 +16,7 @@ class User < ActiveResource::Base
     t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "mashup_id"
   end
 
   
