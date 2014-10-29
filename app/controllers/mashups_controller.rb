@@ -35,9 +35,9 @@ class MashupsController < ApplicationController
 
   # PATCH/PUT /mashups/1
   def update
-    @mashup.parameters << mashup_params[:new_param]
-    mashup = @mashup.as_json(include: {:keywords => {}, :links => {include: {:link_source => {}}} })
-    redirect_to mashup_path(mashup.id), notice: 'Mash up was successfully updated.'
+    @mashup.parameters.push mashup_params[:new_param]
+    mashup = json_update_mashup @mashup.id, {parameters: @mashup.parameters}
+    redirect_to mashup_path(@mashup.id), notice: 'Mash up was successfully updated1.'
   end
 
   # DELETE /mashups/1
@@ -55,6 +55,6 @@ class MashupsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def mashup_params
-      params.require(:mashup).permit(:parameters, :name, :new_param)
+      params.require(:mashup).permit({parameters: []}, :name, :new_param, :cut_params)
     end
 end

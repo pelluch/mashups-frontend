@@ -9,6 +9,15 @@ class ApplicationController < ActionController::Base
 	end
 
 	def json_params url
-      JSON.parse HTTParty.get("http://localhost:3000/#{url}", body:  {login: 'mail1@mail.com'}, headers: {'Accept'=>'application/json'}).response.body
+		if session[:user_id]
+      		JSON.parse HTTParty.get("http://localhost:3000/#{url}", body:  {login: session[:mail]}, headers: {'Accept'=>'application/json'}).response.body
+  		else
+  			JSON.parse HTTParty.get("http://localhost:3000/#{url}", headers: {'Accept'=>'application/json'}).response.body
+  		end
   	end
+
+  	def json_update_mashup id, params
+  		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups/#{id}", :body => {mashup: params, login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  	end
+
 end

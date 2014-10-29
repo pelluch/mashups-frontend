@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
   user = authenticate(params[:email], params[:password])
   if user
     session[:user_id] = user.id
+    session[:mail] = user.mail
     redirect_to root_url, :notice => session[:user_id].to_s + "Logged in!"
   else
     flash.now.alert = "Invalid email or password"
@@ -14,7 +15,8 @@ class SessionsController < ApplicationController
 end
 
 def destroy
-	session[:user_id]=nil
+  session[:user_id]=nil
+  session[:mail]=nil
 	redirect_to root_url, :notice => "Logged out!"
 end
 
