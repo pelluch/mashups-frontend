@@ -30,6 +30,9 @@
 </div>
 <div class="container">
 	<div class="row">
+		<div class="col-sm-6 col-md-4 col-lg-2">
+			<%=  render 'mashups/grid_new' %>
+		</div>
 		<% @user.mashups.each do |m| %>
 			<div class="col-sm-6 col-md-4 col-lg-2">
 				<%=  render 'mashups/grid', mu: m %>

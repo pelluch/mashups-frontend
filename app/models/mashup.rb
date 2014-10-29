@@ -16,8 +16,24 @@ class Mashup < ActiveResource::Base
     t.datetime "updated_at"
   end
 
-  def params
-    self.parameters.split(' ')
+  def parameters_overflow
+    self.parameters[0..-5]
+  end
+
+  def parameters_overflow?
+    parameters.count > 4
+  end
+
+  def parameters_subflow
+    if parameters_overflow?
+      self.parameters[-4,4]
+    else
+      self.parameters
+    end
+  end
+
+  def self.default 
+    Mashup.new(parameters: [], name: "untitled")
   end
 
   def search

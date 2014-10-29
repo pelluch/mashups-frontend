@@ -9,30 +9,20 @@
 		  <div class="col-lg-10">
 		    <div class="input-group form-inline">
 		      <span class="input-group-btn">
-
-		      	<% count = 0 %>
-			    <% @mashup.parameters.each do |p| %>
-
-		    	  <% count += 1 %>
-		    	  <% if count < 6 %>
-		          	<%= link_to p, mashup_path(@mashup.id), class: "btn btn-default", type: "button" %>
-		          <% else %>
-
-		          	<% if count == 6 %>
-		          		<button class="btn btn-default" type="button" data-toggle="dropdown">
-		          			...<span class="caret"></span>
-		          		</button>
-			        	<ul class="dropdown-menu" role="menu">
-			        <% end %>
-
-			          <li><a href="#"><%= p %></a></li>
-
-			        <% if count == @mashup.parameters.count %>
-			        	</ul>
-			        <% end %>
-
-	          	  <% end %>
-			  	<% end %>
+				<% if @mashup.parameters_overflow? %>
+				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+					... 
+				  <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				  <% @mashup.parameters_overflow.reverse_each do |p| %>
+				    <li><a href="#"><%= p %></a></li>
+				  <% end %>
+				  </ul>
+				<% end %>
+			    <% @mashup.parameters_subflow.each do |p| %>
+		          <%= link_to p, mashup_path(@mashup.id), class: "btn btn-default", type: "button" %>
+	            <% end %>
 		      </span>
 		      <input type="text" name="mashup[new_param]" class="form-control">
 		      <span class="input-group-btn">
@@ -48,6 +38,10 @@
 		<% @mashup.keywords.each do |kw|%>
 			<span class=<%= "keyword-"+kw.value.to_s %>><%= link_to kw.keyword, '#' %></span>
 		<% end %>
+    </div>
+    <div class="well btn-group btn-group-justified">
+		<%= link_to "Save", '#', class: "btn btn-large btn-primary" %>
+		<%= link_to 'Destroy', mashup_path(@mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
     </div>
     <div class="row well">
       <% for i in 1..4 %>

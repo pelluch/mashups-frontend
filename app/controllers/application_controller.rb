@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 	helper_method :current_user
 
 	def current_user
-		@current_user = User.new(json_params "user/users/"+session[:user_id].to_s) if session[:user_id]
+		@current_user = User.new(json_params "user/users/" + session[:user_id].to_s) if session[:user_id]
 	end
 
 	def json_params url
@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
 
   	def json_update_mashup id, params
   		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups/#{id}", :body => {mashup: params, login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  	end
+
+  	def json_create_mashup mashup
+  		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {mashup: mashup.as_json, login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  	end
+
+  	def json_destroy_mashup mashup_id
+  		JSON.parse HTTParty.delete("http://localhost:3000/mashup/mashups/#{mashup_id}", :body => {login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
   	end
 
 end

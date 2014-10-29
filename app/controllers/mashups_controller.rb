@@ -15,7 +15,8 @@ class MashupsController < ApplicationController
 
   # GET /mashups/new
   def new
-    @mashup = Mashup.new
+    @mashup = Mashup.new(json_params "mashup/mashups/new")
+    render :show
   end
 
   # GET /mashups/1/edit
@@ -36,14 +37,15 @@ class MashupsController < ApplicationController
   # PATCH/PUT /mashups/1
   def update
     @mashup.parameters.push mashup_params[:new_param]
-    mashup = json_update_mashup @mashup.id, {parameters: @mashup.parameters}
-    redirect_to mashup_path(@mashup.id), notice: 'Mash up was successfully updated1.'
+    mashup = Mashup.new(json_update_mashup @mashup.id, {parameters: @mashup.parameters})
+    redirect_to mashup_path(mashup.id)
   end
 
   # DELETE /mashups/1
   def destroy
-    @mashup.destroy
-    redirect_to mashups_url, notice: 'Mash up was successfully destroyed.'
+    user_id = @mashup.user_id
+    json_destroy_mashup @mashup.id
+    redirect_to user_path(user_id), notice: 'Mash up was successfully destroyed.'
   end
 
   private
