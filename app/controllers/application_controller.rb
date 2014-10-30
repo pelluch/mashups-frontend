@@ -16,12 +16,12 @@ class ApplicationController < ActionController::Base
   		end
   	end
 
-  	def json_update_mashup id, params
-  		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups/#{id}", :body => {mashup: params, login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  	def json_update_mashup params
+  		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups", :body => {parameters: params[:parameters], login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
   	end
 
-  	def json_create_mashup
-  		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  	def json_create_mashup name
+  		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {login: session[:mail], name: name}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
   	end
 
   	def json_destroy_mashup mashup_id
