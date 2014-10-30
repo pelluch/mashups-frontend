@@ -3,7 +3,10 @@ class MashupsController < ApplicationController
 
   # GET /mashups
   def index
-    @mashups = Mashup.all
+    @mashups = Array.new
+    (json_params "mashup/mashups").first.last.each do |mashup|
+      @mashups << Mashup.new(mashup)
+    end
   end
 
   # GET /mashups/1
@@ -12,7 +15,8 @@ class MashupsController < ApplicationController
 
   # GET /mashups/new
   def new
-    @mashup = Mashup.new
+    @mashup = Mashup.new(json_params "mashup/mashups/new")
+    render :show
   end
 
   # GET /mashups/1/edit
@@ -21,38 +25,34 @@ class MashupsController < ApplicationController
 
   # POST /mashups
   def create
-    @mashup = Mashup.new(mashup_params)
+    @mashup = Mashup.new(json_create_mashup)
 
-    if @mashup.save
-      redirect_to @mashup, notice: 'Mash up was successfully created.'
-    else
-      render :new
-    end
+    redirect_to mashup_path(@mashup.id)
   end
 
   # PATCH/PUT /mashups/1
   def update
-    if @mashup.update(mashup_params)
-      redirect_to @mashup, notice: 'Mash up was successfully updated.'
-    else
-      render :edit
-    end
+    @mashup.parameters.push mashup_params[:new_param] if mashup_params[:new_param].length > 0
+    mashup = Mashup.new(json_update_mashup @mashup.id, {parameters: @mashup.parameters, name: mashup_params[:name]})
+    redirect_to mashup_path(mashup.id)
   end
 
   # DELETE /mashups/1
   def destroy
-    @mashup.destroy
-    redirect_to mashups_url, notice: 'Mash up was successfully destroyed.'
+    user_id = @mashup.user_id
+    json_destroy_mashup @mashup.id
+    redirect_to user_path(user_id), notice: 'Mash up was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mashup
-      @mashup = Mashup.find(params[:id])
+      #@mashup = Mashup.find(params[:id])
+      @mashup = Mashup.new(json_params "mashup/mashups/#{params[:id]}")
     end
 
     # Only allow a trusted parameter "white list" through.
     def mashup_params
-      params[:mashup]
+      params.require(:mashup).permit({parameters: []}, :name, :new_param, :cut_params)
     end
 end

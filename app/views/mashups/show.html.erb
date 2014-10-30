@@ -1,4 +1,68 @@
 <p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_mashup_path(@mashup) %> |
-<%= link_to 'Back', mashups_path %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
+	    <div class="col-lg-2">
+	      <%if @mashup.id == current_user.mashup_id %>
+	  	    <div class="input-group form-inline">
+	  	  	  <%= text_field_tag 'mashup[name]', @mashup.name, placeholder: "Enter Title", class: "form-control" %>
+	  	    </div>
+	  	  <% else %>
+	  	    <h4><%= @mashup.name %></h4>
+	  	  <% end %>
+	    </div>
+		  <div class="col-lg-10">
+		    <div class="input-group form-inline">
+		      <span class="input-group-btn">
+				<% if @mashup.parameters_overflow? %>
+				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+					... 
+				  <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				  <% @mashup.parameters_overflow.reverse_each do |p| %>
+				    <li><a href="#"><%= p %></a></li>
+				  <% end %>
+				  </ul>
+				<% end %>
+			    <% @mashup.parameters_subflow.each do |p| %>
+		          <%= link_to p, mashup_path(@mashup.id), class: "btn btn-default", type: "button" %>
+	            <% end %>
+		      </span>
+		      <input type="text" name="mashup[new_param]" class="form-control">
+		      <span class="input-group-btn">
+	          	<button class="btn btn-default" type="submit">Search</button>
+		      </span>
+		    </div><!-- /input-group -->
+		  </div><!-- /.col-lg-6 -->
+      <% end %>
+	</div><!-- /.row -->
+  </div>
+  <div class="panel-body">
+    <div class="row well">
+		<% @mashup.keywords.each do |kw|%>
+			<span class=<%= "keyword-"+kw.value.to_s %>><%= link_to kw.keyword, '#' %></span>
+		<% end %>
+    </div>
+    <% if current_user.id == @mashup.user_id %>
+	    <div class="well btn-group btn-group-justified">
+	      <%if @mashup.id == current_user.mashup_id %>
+			<%= link_to "Save", mashups_path, method: :create, class: "btn btn-large btn-primary" %>
+		  <% end %>
+			<%= link_to 'Destroy', mashup_path(@mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
+	    </div>
+    <% end %>
+    <div class="row well">
+      <% for i in 1..4 %>
+      	<div class="col-lg-3">
+	      <% @mashup.links.each do |link| %>
+	      	<% if link.link_source_id == i then %>
+	    		<%= render 'links/show' , link: link %>
+	    	<% end %>
+		  <% end %>
+		</div>
+	  <% end %>
+    </div>
+  </div>
+</div>

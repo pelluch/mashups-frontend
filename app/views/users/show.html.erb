@@ -1,29 +1,44 @@
 <p id="notice"><%= notice %></p>
 <div class = "jumbotron">
-	<div class = "page-header">
-		<h1>
-			<%= @user.name %>
-			<small>
-				<%= @user.mail %>
-			</small>
-		</h1>
+	<div class = "page-header row">
+		<div class="col-xs-2">
+			<%= image_tag("user.png", alt: "profile picture", class: "profile-pic") %>
+		</div>
+
+		<div class="col-md-10">
+			<h1>
+				<%= @user.name %>
+				<small>
+					<%= @user.mail %>
+				</small>
+			</h1>
+		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Información</h3>
+			<h3 class="panel-title">Personal information</h3>
 		</div>
 		<div class="panel-body">
 			Tu información personal
 		</div>
 	</div>
 
-	<%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary" %>
+	<% if current_user %>
+		<%= link_to 'Edit', edit_user_path(@user.id), class: "btn btn-primary" %>
+	<% end %>
 
 </div>
 <div class="container">
 	<div class="row">
+		<% if current_user %>
+		<div class="col-sm-6 col-md-4 col-lg-2">
+			<%=  render 'mashups/grid_new' %>
+		</div>
+		<% end %>
 		<% @user.mashups.each do |m| %>
-			<%=  render 'mashups/grid', mu: m %>
+			<div class="col-sm-6 col-md-4 col-lg-2">
+				<%=  render 'mashups/grid', mu: m %>
+			</div>
 		<% end %>
 	</div>
 </div>

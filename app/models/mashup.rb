@@ -5,6 +5,8 @@ class Mashup < ActiveResource::Base
   # self.site = "http://api.people.com:3000"
 
   belongs_to :user
+  has_many :links
+  has_many :keywords
 
   schema do |t|
     t.string   "parameters"
@@ -12,6 +14,26 @@ class Mashup < ActiveResource::Base
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  def parameters_overflow
+    self.parameters[0..-5]
+  end
+
+  def parameters_overflow?
+    parameters.count > 4
+  end
+
+  def parameters_subflow
+    if parameters_overflow?
+      self.parameters[-4,4]
+    else
+      self.parameters
+    end
+  end
+
+  def self.default 
+    Mashup.new(parameters: [], name: "untitled")
   end
 
   def search

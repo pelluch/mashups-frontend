@@ -1,0 +1,7 @@
+<div class="source" id=<%= 'source-' + link.link_source_id.to_s %>>
+	<div class="source-title">
+		<%= image_tag(link.link_source.photo, alt: link.link_source.photo) %>
+		<%= link_to link.title.titleize, link.link %>
+	</div>
+	<p>Aqui supondría que va el contenido de la noticia, me imagino. Con el autor y una foto o algo</p>
+</div>
