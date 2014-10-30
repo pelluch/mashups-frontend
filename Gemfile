@@ -23,6 +23,8 @@ gem 'jquery-rails', '~> 3.1.2'
 
 gem 'tzinfo-data'
 
+gem 'metric_fu'
+
 group :production do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'rails_12factor', '~> 0.0.2'
