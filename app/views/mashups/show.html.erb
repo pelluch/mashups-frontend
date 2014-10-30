@@ -2,16 +2,42 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="row">
-      <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
-	    <div class="col-lg-2">
+      	<div class="col-lg-2">
 	      <%if @mashup.id == current_user.mashup_id %>
 	  	    <div class="input-group form-inline">
-	  	  	  <%= text_field_tag 'mashup[name]', @mashup.name, placeholder: "Enter Title", class: "form-control" %>
-	  	    </div>
+	  			<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+				  Save Mashup...
+				</button>
+
+				<!-- Modal -->
+				<%= form_tag(mashups_path, method: 'post') do %>  	  
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title" id="myModalLabel">Grabar Nuevo Mashup</h4>
+				      </div>
+				      <div class="modal-body">
+				    	<%= text_field_tag 'mashup[name]', @mashup.name, placeholder: "Enter Title", class: "form-control" %>    
+				    	<br>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button class="btn btn-success" type="submit">Save</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<% end -%>	  	 
+
+ 	  	    </div>
 	  	  <% else %>
 	  	    <h4><%= @mashup.name %></h4>
 	  	  <% end %>
 	    </div>
+
+	    <%= form_tag(mashup_path(@mashup.id),method: 'patch') do %>
 		  <div class="col-lg-10">
 		    <div class="input-group form-inline">
 		      <span class="input-group-btn">
