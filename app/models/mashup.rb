@@ -17,19 +17,23 @@ class Mashup < ActiveResource::Base
   end
 
   def parameters_overflow
-    self.parameters[0..-5]
+    map_parameters[0..-5]
   end
 
   def parameters_overflow?
-    parameters.count > 4
+    self.parameters.count > 4
   end
 
   def parameters_subflow
     if parameters_overflow?
-      self.parameters[-4,4]
+      map_parameters[-4,4]
     else
-      self.parameters
+      map_parameters
     end
+  end
+
+  def map_parameters
+    self.parameters.each_with_index.map { |x,i| [x, i] }
   end
 
   def self.default 
