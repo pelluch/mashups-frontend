@@ -10,22 +10,33 @@ class ApplicationController < ActionController::Base
 
 	def json_params url
 		if session[:user_id]
-      		JSON.parse HTTParty.get("http://localhost:3000/#{url}", body:  {login: session[:mail]}, headers: {'Authorization' =>"Token token=#{session[:token]}", 'Accept'=>'application/json'}).response.body
-  		else
-  			JSON.parse HTTParty.get("http://localhost:3000/#{url}", headers: {'Accept'=>'application/json'}).response.body
-  		end
+   		JSON.parse HTTParty.get("http://localhost:3000/#{url}", body:  {login: session[:mail]}, headers: {'Authorization' =>"Token token=#{session[:token]}", 'Accept'=>'application/json'}).response.body
+  	else
+  		JSON.parse HTTParty.get("http://localhost:3000/#{url}", headers: {'Accept'=>'application/json'}).response.body
   	end
+  end
 
-  	def json_update_mashup params
-  		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups", :body => {parameters: params[:parameters], login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
-  	end
+	def json_update_mashup params
+		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups", :body => {parameters: params[:parameters], sources: params[:sources], login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+	end
 
-  	def json_create_mashup name
-  		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {login: session[:mail], name: name}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
-  	end
+	def json_create_mashup name
+		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {login: session[:mail], name: name}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+	end
 
-  	def json_destroy_mashup mashup_id
-  		JSON.parse HTTParty.delete("http://localhost:3000/mashup/mashups/#{mashup_id}", :body => {login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
-  	end
+	def json_destroy_mashup mashup_id
+		JSON.parse HTTParty.delete("http://localhost:3000/mashup/mashups/#{mashup_id}", :body => {login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+	end
+
+  def sources
+    sources = JSON.parse HTTParty.get("http://localhost:3000/mashup/sources", :headers => {'Accept'=> 'application/json'}).response.body
+
+    @sources = Array.new
+    sources["sources"].each do |a|
+      s = LinkSource.new name: a["name"], photo: a["photo"]
+      @sources << s
+    end
+    @sources
+  end
 
 end

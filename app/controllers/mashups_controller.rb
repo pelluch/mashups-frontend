@@ -1,5 +1,6 @@
 class MashupsController < ApplicationController
   before_action :set_mashup, only: [:show, :edit, :update, :destroy]
+  before_action :sources, only: [:show]
 
   # GET /mashups
   def index
@@ -11,6 +12,7 @@ class MashupsController < ApplicationController
 
   # GET /mashups/1
   def show
+
   end
 
   # GET /mashups/new
@@ -37,7 +39,7 @@ class MashupsController < ApplicationController
     else
       @mashup.parameters = mashup_params[:parameters] if mashup_params.has_key? :parameters
     end
-    mashup = Mashup.new(json_update_mashup ({parameters: @mashup.parameters, name: mashup_params[:name]}))
+    mashup = Mashup.new(json_update_mashup ({parameters: @mashup.parameters, sources: params[:source_ids], name: mashup_params[:name]}))
     redirect_to mashup_path(mashup.id)
   end
 

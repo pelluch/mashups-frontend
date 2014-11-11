@@ -63,6 +63,13 @@
 	          	<button class="btn btn-default" type="submit">Search</button>
 		      </span>
 		    </div><!-- /input-group -->
+		    <div id = "sources">		    	
+		    	<%= collection_check_boxes(nil, :source_ids, @sources, :name, :name) do |b|%>
+              		<div class = "sources_source">
+              			<%=  b.label(:"data-value" => b.value) { b.check_box + b.text } %>
+              		</div>
+            	<% end %>		    	
+		    </div>
 		  </div><!-- /.col-lg-6 -->
       <% end %>
 	</div><!-- /.row -->
@@ -75,9 +82,9 @@
     </div>
     <% if current_user.id == @mashup.user_id %>
 	    <div class="well btn-group btn-group-justified">
-	      <%if @mashup.id == current_user.mashup_id %>
+	      <!--<%if @mashup.id == current_user.mashup_id %>
 			<%= link_to "Save", mashups_path, method: :create, class: "btn btn-large btn-primary" %>
-		  <% end %>
+		  <% end %>-->
 			<%= link_to 'Destroy', mashup_path(@mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
 	    </div>
     <% end %>
