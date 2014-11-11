@@ -55,7 +55,11 @@
 				  </ul>
 				<% end %>
 			    <% @mashup.parameters_subflow.each_with_index do |p,i| %>
-		          <%= link_to p, mashup_path(mashup:{parameters: @mashup.parameters[0..i]}), method: :put , class: "btn btn-default", type: "button" %>
+			      <% if i == 0 %>
+		          	<%= link_to p, mashup_path(mashup:{parameters: ['RESET_MODE'] }), method: :put , class: "btn btn-default", type: "button" %>
+			      <% else %>
+		          	<%= link_to p, mashup_path(mashup:{parameters: @mashup.parameters[0..i-1] }), method: :put , class: "btn btn-default", type: "button" %>
+		          <% end %>
 	            <% end %>
 		      </span>
 		      <input type="text" name="mashup[new_param]" class="form-control">
