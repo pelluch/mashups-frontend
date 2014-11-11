@@ -24,20 +24,18 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
 
-    if @user.save
-      redirect_to root_url, notice: 'Signed Up!'
-    else
-      render :new
-    end
+    @user = JSON.parse HTTParty.post("http://localhost:3000/user/user_normal", :body => {user: {name: params[:user][:name], password: params[:user][:password], mail: params[:user][:mail]}}, :headers => {'Accept'=> 'application/json'}).response.body
+    
+    redirect_to user_path(@user)    
   end
 
   # PATCH/PUT /users/1
   def update
-    @user = User.new(user_params)
+    #@user = JSON.parse HTTParty.put("http://localhost:3000/user/user_normal/#{params[:id]}", :body => {user: {name: 'tpgunther15'}}, :headers => {'Authorization' =>'Token token=bbdb1bb7bf7c5cae319cfdad7890fa16', 'Accept'=> 'application/json'}).response.body
+    #@user = User.new(user_params)
     if @user.update
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
     end
