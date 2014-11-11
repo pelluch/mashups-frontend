@@ -25,9 +25,13 @@ class UsersController < ApplicationController
   # POST /users
   def create
 
-    @user = JSON.parse HTTParty.post("http://localhost:3000/user/user_normal", :body => {user: {name: params[:user][:name], password: params[:user][:password], mail: params[:user][:mail]}}, :headers => {'Accept'=> 'application/json'}).response.body
+    @user = User.new(JSON.parse HTTParty.post("http://localhost:3000/user/user_normal", :body => {user: {name: params[:user][:name], password: params[:user][:password], mail: params[:user][:mail]}}, :headers => {'Accept'=> 'application/json'}).response.body)
     
-    redirect_to user_path(@user)    
+    if not defined? @user.id
+      redirect_to request.referrer, notice: "Password or email are invalid " << @user.to_s
+    else
+      redirect_to user_path(@user.id) 
+    end   
   end
 
   # PATCH/PUT /users/1
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
     #@user = JSON.parse HTTParty.put("http://localhost:3000/user/user_normal/#{params[:id]}", :body => {user: {name: 'tpgunther15'}}, :headers => {'Authorization' =>'Token token=bbdb1bb7bf7c5cae319cfdad7890fa16', 'Accept'=> 'application/json'}).response.body
     #@user = User.new(user_params)
     if @user.update
-      redirect_to user_path(@user), notice: 'User was successfully updated.'
+      redirect_to user_path(@user.id), notice: 'User was successfully updated.'
     else
       render :edit
     end
