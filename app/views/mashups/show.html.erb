@@ -47,13 +47,15 @@
 				  <span class="caret"></span>
 				  </button>
 				  <ul class="dropdown-menu" role="menu">
-				  <% @mashup.parameters_overflow.reverse_each do |p| %>
-				    <li><a href="#"><%= p %></a></li>
+				  <% @mashup.parameters_overflow.reverse_each_with_index do |p,i| %>
+				    <li>
+				    	<%= link_to p, mashup_path(mashup:{offset: i, id: @mashup.id}), method: :put %>
+			    	</li>
 				  <% end %>
 				  </ul>
 				<% end %>
-			    <% @mashup.parameters_subflow.each do |p| %>
-		          <%= link_to p, mashup_path(@mashup.id), class: "btn btn-default", type: "button" %>
+			    <% @mashup.parameters_subflow.each_with_index do |p,i| %>
+		          <%= link_to p, mashup_path(mashup:{parameters: @mashup.parameters[0..i]}), method: :put , class: "btn btn-default", type: "button" %>
 	            <% end %>
 		      </span>
 		      <input type="text" name="mashup[new_param]" class="form-control">
