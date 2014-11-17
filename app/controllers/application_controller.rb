@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
 	def json_params url
 		if session[:user_id]
+      logger.info "http://localhost:3000/#{url}"
    		JSON.parse HTTParty.get("http://localhost:3000/#{url}", body:  {login: session[:mail]}, headers: {'Authorization' =>"Token token=#{session[:token]}", 'Accept'=>'application/json'}).response.body
   	else
   		JSON.parse HTTParty.get("http://localhost:3000/#{url}", headers: {'Accept'=>'application/json'}).response.body
