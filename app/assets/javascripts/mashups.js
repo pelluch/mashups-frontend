@@ -30,7 +30,7 @@ ready = function() {
 	  				ids: ids,
 	  				new_param: new_param,
 	  				source: sources,
-	  				mashup: { name: "un_nombre" }
+	  				mashup: { name: $('#parameters').data('name') }
 	  			}
 			}).done(function(){
 				$('.keyword-link').click(reload_keywords);
