@@ -33,8 +33,8 @@ class MashupsController < ApplicationController
 
   # PATCH/PUT /mashups/1
   def update
-    if (params.has_key? :new_param ) 
-      @mashup.parameters.push params[:new_param] if (params[:new_param].length > 0)
+    if (params.has_key? :new_param and params[:new_param].length > 0 ) 
+      @mashup.parameters.push params[:new_param]
     else
       if params.has_key? :ids
         if params[:ids] == '0' 

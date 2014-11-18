@@ -1,15 +1,12 @@
 <div class="row well">
 		<% mashup.keywords.each do |kw|%>
-			<span class=<%= "keyword-"+(kw.value/5).to_s %>><%= link_to kw.keyword, '#' %></span>
+			<span class=<%= "keyword-"+(kw.value/5).to_s %>><%= link_to kw.keyword, '#', class: "keyword-link", data: { value: kw.keyword } %></span>
 		<% end %>
     </div>
 
     <!-- DESTROY -->
     <% if current_user.id == mashup.user_id %>
 	    <div class="well btn-group btn-group-justified">
-	      <!--<%if mashup.id == current_user.mashup_id %>
-			<%= link_to "Save", mashups_path, method: :create, class: "btn btn-large btn-primary" %>
-		  <% end %>-->
 			<%= link_to 'Destroy', mashup_path(mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
 	    </div>
     <% end %>

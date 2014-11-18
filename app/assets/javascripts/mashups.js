@@ -4,38 +4,19 @@
 
 ready = function() {
 
-	var reload_nav_btns = function(){
-		alert("OUCH!");
-		var sources = new Array();
-		$.each($("input[name='[source_ids][]']:checked"), function() {
-		  sources.push($(this).val());
-		});
-
-		$.ajax({
-  			type: "PATCH",
-  			url: "/mashups/"+$("#mashup_id").val(),
-  			data: {
-  				ids: $(this).data('ids'),
-  				source: sources,
-  				mashup: { name: "un_nombre" }
-  			}
-		}).done(function(){
-			$(".nav-btn").click(reload_nav_btns);
-		});
-	};
-
-	$(".nav-btn").click(reload_nav_btns);
-
-	$("#search_btn").click(function()
-	{
+	var find_sources = function() {
 
 		var sources = new Array();
 		$.each($("input[name='[source_ids][]']:checked"), function() 
 		{
 		  sources.push($(this).val());
 		});
+		return sources;
+	};
 
-		if (sources.length === 0) 
+	var ajax_call = function(ids, new_param) {
+		var sources = find_sources(); 
+		if (sources.length === 0)
 		{
 			alert('Pick at least one source');
 		}
@@ -45,20 +26,36 @@ ready = function() {
 			$.ajax({
 	  			type: "PATCH",
 	  			url: "/mashups/"+$("#mashup_id").val(),
-	  			data: 
-	  			{
-	  				ids: $('#parameters').data('count'),
-	  				new_param: $("#query_text").val(),
+	  			data: {
+	  				ids: ids,
+	  				new_param: new_param,
 	  				source: sources,
 	  				mashup: { name: "un_nombre" }
 	  			}
-	  		}).done(function()
-	  		{
+			}).done(function(){
+				$('.keyword-link').click(reload_keywords);
 				$(".nav-btn").click(reload_nav_btns);
 				$('#loader').css('display','none');
 			});
 		}
-		
+	};
+
+	var reload_nav_btns = function(){
+		ajax_call($(this).data('ids'), "");
+	};
+
+	$(".nav-btn").click(reload_nav_btns);
+
+	var reload_keywords = function() {
+		ajax_call($('#parameters').data('count'), $(this).data('value'))
+	};
+
+	$(".keyword-link").click(reload_keywords);
+
+
+	$("#search_btn").click(function()
+	{
+		ajax_call($('#parameters').data('count'), $("#query_text").val());
 	});
 };
 
