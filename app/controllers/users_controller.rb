@@ -37,8 +37,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     #@user = JSON.parse HTTParty.put("http://localhost:3000/user/user_normal/#{params[:id]}", :body => {user: {name: 'tpgunther15'}}, :headers => {'Authorization' =>'Token token=bbdb1bb7bf7c5cae319cfdad7890fa16', 'Accept'=> 'application/json'}).response.body
-    #@user = User.new(user_params)
-    if @user.update
+    @user = User.new(json_update_user(params, params[:id]))
+    if @user.id
       redirect_to user_path(@user.id), notice: 'User was successfully updated.'
     else
       render :edit
@@ -60,6 +60,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params[:user]
+      params.require(:user).permit(:name, :mail, :password, :password_confirmation)
     end
 end

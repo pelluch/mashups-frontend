@@ -17,9 +17,13 @@ class ApplicationController < ActionController::Base
   	end
   end
 
-	def json_update_mashup params
-		JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups", :body => {parameters: params[:parameters], sources: params[:sources], login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
-	end
+  def json_update_user params, id
+    JSON.parse HTTParty.put("http://localhost:3000/user/user_normal/#{id}", :body => {user: {name: params[:user][:name], password: params[:user][:password], mail: params[:user][:mail]}}, :headers => {'Authorization' =>"Token token=#{current_user.token}",'Accept'=> 'application/json'}).response.body
+  end
+
+  def json_update_mashup params
+    JSON.parse HTTParty.put("http://localhost:3000/mashup/mashups", :body => {parameters: params[:parameters], sources: params[:sources], login: session[:mail]}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
+  end
 
 	def json_create_mashup name
 		JSON.parse HTTParty.post("http://localhost:3000/mashup/mashups/", :body => {login: session[:mail], name: name}, :headers => {'Authorization' =>"Token token=#{current_user.token}", 'Accept'=> 'application/json'}).response.body
