@@ -20,10 +20,6 @@ class MashupsController < ApplicationController
     redirect_to mashup_path(@mashup.id)
   end
 
-  # GET /mashups/1/edit
-  def edit
-  end
-
   # POST /mashups
   def create
     @mashup = Mashup.new(json_create_mashup (params[:mashup][:name]))
