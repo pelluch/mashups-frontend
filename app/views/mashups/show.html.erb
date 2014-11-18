@@ -4,7 +4,7 @@
   <div class="panel-heading">
     <div class="row">
       	<div class="col-lg-2">
-	      <%if @mashup.id == current_user.mashup_id %>
+	      <%if current_user && @mashup.id == current_user.mashup_id %>
 	  	    <div class="input-group form-inline">
 	  			<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
 				  Save Mashup...
@@ -43,36 +43,14 @@
 		      <input id="mashup_count" type="hidden" value="<%= @mashup.parameters.count %>" />
 		      <input id="mashup_parameters_list" type="hidden" value="<%= @mashup.parameters.join(",") %>" />
 		      <span id="mashup_list" class="input-group-btn">
-				<% if @mashup.parameters_overflow? %>
-				  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-					... 
-				  <span class="caret"></span>
-				  </button>
-				  <ul id="menu_list" class="dropdown-menu" role="menu">
-				  <% @mashup.parameters_overflow.reverse.each do |p| %>
-				    <li>
-						<% if p[1] == 0 %>
-							<%= link_to p[0], mashup_path(mashup:{parameters: ['RESET_MODE'] }), method: :put %>
-						<% else %>
-							<%= link_to p[0], mashup_path(mashup:{parameters: @mashup.parameters[0..p[1]-1] }), method: :put %>
-						<% end %>
-			    	</li>
-				  <% end %>
-				  </ul>
-				<% end %>
-			    <% @mashup.parameters_subflow.each do |p| %>
-			      <% if p[1] == 0 %>
-		          	<%= link_to p[0], mashup_path(mashup:{parameters: ['RESET_MODE'], ids: p[1] }), method: :put , class: "btn btn-default", type: "button" %>
-			      <% else %>
-		          	<%= link_to p[0], mashup_path(mashup:{parameters: @mashup.parameters[0..p[1]-1], ids: p[1] }), method: :put , class: "btn btn-default", type: "button" %>
-		          <% end %>
-	            <% end %>
+				<%= render 'mashups/params_list', mashup: @mashup %>
 		      </span>
 		      <input id="query_text" type="text" name="mashup[new_param]" class="form-control">
 		      <span class="input-group-btn">
 	          	<button id="search_btn" class="btn btn-default" type="submit">Search</button>
 		      </span>
 		    </div><!-- /input-group -->
+
 		    <div id = "sources">		    	
 		    	<%= collection_check_boxes(nil, :source_ids, @sources, :name, :name) do |b|%>
               		<div class = "sources_source">
@@ -80,6 +58,7 @@
               		</div>
             	<% end %>		    	
 		    </div>
+		    
 		  </div><!-- /.col-lg-6 -->
 	</div><!-- /.row -->
   </div>

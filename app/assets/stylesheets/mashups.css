@@ -1,18 +1,21 @@
-// Place all the styles related to the MashUps controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
 
 
 /* mash-up */
 
 .mashup-thumbnail {
-  height: 20em;
+  height: 200px;
   background-color: #fff;
   margin: 10px -5px 2px -5px;
   padding: 5px;
   border: 2px solid #eee;
   border-radius: 10px;
   box-shadow: 3px 3px 5px #aaa;
+}
+
+.mashup-thumbnail h2 {
+  width: 100%;
+  word-break: break-all;
 }
 
 .mashup-thumbnail:hover {
@@ -23,8 +26,21 @@
   box-shadow: 3px 3px 8px #999;
 }
 
+#sources div {
+  display: inline;
+  margin-left: 15px;
+}
+
+#sources input {
+  margin-right: 5px;
+}
+
 .mashup-thumbnail-ref:hover {
   text-decoration: none;
+}
+
+.keyword-0 {
+  font-size: 0.5em;
 }
 
 .keyword-1 {
@@ -61,4 +77,56 @@
 
 .keyword-9 {
   font-size: 5em;
+}
+
+.keyword-10 {
+  font-size: 5.5em;
+}
+
+.keyword-11 {
+  font-size: 6em;
+}
+
+.keyword-12 {
+  font-size: 6.5em;
+}
+
+.keyword-13 {
+  font-size: 7em;
+}
+
+.keyword-14 {
+  font-size: 7.5em;
+}
+
+.keyword-15 {
+  font-size: 8em;
+}
+
+.keyword-16 {
+  font-size: 8.5em;
+}
+
+.keyword-17 {
+  font-size: 9em;
+}
+
+.keyword-18 {
+  font-size: 9.5em;
+}
+
+.keyword-19 {
+  font-size: 10em;
+}
+
+.keyword-20 {
+  font-size: 10.5em;
+}
+
+.keyword-21 {
+  font-size: 11em;
+}
+
+.keyword-22 {
+  font-size: 11.5em;
 }

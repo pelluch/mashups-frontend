@@ -5,7 +5,14 @@ class ApplicationController < ActionController::Base
 	helper_method :current_user
 
 	def current_user
-		@current_user = User.new(json_params "user/users/" + session[:user_id].to_s) if session[:user_id]
+		begin
+      @current_user = User.new(json_params "user/users/" + session[:user_id].to_s) if session[:user_id]
+    rescue Exception => e
+    session[:user_id]=nil
+    session[:mail]=nil
+    session[:token]=nil
+      nil
+    end
 	end
 
 	def json_params url

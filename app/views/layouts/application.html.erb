@@ -16,8 +16,11 @@
 			<%= content_tag :div, msg, :id => "flash_#{name}" %>
 			<% end %>
 	
-	<%= yield %>
-</div>
+		<%= yield %>
+
+		<%= render 'layouts/loading' %>
+
+	</div>
 
 		<%= render 'layouts/footer' %>
 

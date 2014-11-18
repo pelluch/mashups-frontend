@@ -1,9 +1,10 @@
 <%= link_to( mashup_path(mu.id), {class: "mashup-thumbnail-ref"}) do %>
 	<div class="mashup-thumbnail">
 	    <h2><%= mu.name %></h2>
+	    <p>
 	    <% mu.parameters.each do |parameter| %>
 	    	<strong><%= parameter %> </strong>
 	    <% end %>
-	    <p>Aqui va un cloud tag</p>
+	    </p>
     </div>
 <% end %>

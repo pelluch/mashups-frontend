@@ -1,24 +1,24 @@
 <div class="row well">
-		<% @m.keywords.each do |kw|%>
-			<span class=<%= "keyword-"+kw.value.to_s %>><%= link_to kw.keyword, '#' %></span>
+		<% mashup.keywords.each do |kw|%>
+			<span class=<%= "keyword-"+(kw.value/5).to_s %>><%= link_to kw.keyword, '#' %></span>
 		<% end %>
     </div>
 
     <!-- DESTROY -->
-    <% if current_user.id == @m.user_id %>
+    <% if current_user.id == mashup.user_id %>
 	    <div class="well btn-group btn-group-justified">
-	      <!--<%if @mashup.id == current_user.mashup_id %>
+	      <!--<%if mashup.id == current_user.mashup_id %>
 			<%= link_to "Save", mashups_path, method: :create, class: "btn btn-large btn-primary" %>
 		  <% end %>-->
-			<%= link_to 'Destroy', mashup_path(@m.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
+			<%= link_to 'Destroy', mashup_path(mashup.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-large btn-primary"  %>
 	    </div>
     <% end %>
 
     <!-- LINKS -->
     <div class="row well">
-      <% for i in 1..4 %>
+      <% for i in 0..3 %>
       	<div class="col-lg-3">
-	      <% @m.links.each_with_index do |link, j| %>
+	      <% mashup.links.each_with_index do |link, j| %>
 	      	<% if j%4 == i %>
 	    		<%= render 'links/show' , link: link %>
 	    	<% end %>

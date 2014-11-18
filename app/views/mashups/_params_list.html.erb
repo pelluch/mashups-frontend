@@ -1,0 +1,17 @@
+<div id="parameters" data-count=<%= mashup.parameters.count %>></div>
+<% if mashup.parameters_overflow? %>
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+	... 
+  <span class="caret"></span>
+  </button>
+  <ul id="menu_list" class="dropdown-menu" role="menu">
+  <% mashup.parameters_overflow.reverse.each do |p| %>
+    <li>
+	  <%= link_to p[0], '#', class: "nav-btn", data: {ids: p[1]} %>
+	</li>
+  <% end %>
+  </ul>
+<% end %>
+<% mashup.parameters_subflow.each do |p| %>
+  <%= link_to p[0], '#', class: "nav-btn btn btn-default", type: "button", data: {ids: p[1]} %>
+<% end %>

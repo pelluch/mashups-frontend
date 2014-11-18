@@ -84,3 +84,24 @@ footer ul li {
   margin-left: 10px;
 }
 
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 10000;
+}
+
+#loader-message {
+  color: white;
+  font-size: 3em;
+  margin: auto;
+  text-align: center;
+  margin-top: 25%;
+  height: 40%;
+  vertical-align: center;
+}
+
