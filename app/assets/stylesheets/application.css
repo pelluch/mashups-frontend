@@ -105,3 +105,8 @@ footer ul li {
   vertical-align: center;
 }
 
+#loader div.progress{
+  margin: auto;
+  width: 50%
+}
+
