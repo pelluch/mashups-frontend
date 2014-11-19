@@ -40,10 +40,19 @@ class MashupsController < ApplicationController
         end
       end
     end
-    @mashup = Mashup.new(json_update_mashup ({parameters: @mashup.parameters, sources: params[:source], name: mashup_params[:name]}))
-    respond_to do |format|
-      format.js 
+    @notice = ""
+    old_mashup = @mashup
+    begin
+      @mashup = Mashup.new(json_update_mashup ({parameters: @mashup.parameters, sources: params[:source], name: mashup_params[:name]}))
+    rescue Exception => e
+      @notice = "Unable to find resources"
+      @mashup = old_mashup
     end
+    puts "$$$$$$$$$$$$$$$$$$$$$$$$$$ " << @notice
+    respond_to do |format|
+      format.js
+    end
+    
   end
 
   # DELETE /mashups/1

@@ -47,7 +47,7 @@ ready = function() {
 	$(".nav-btn").click(reload_nav_btns);
 
 	var reload_keywords = function() {
-		ajax_call($('#parameters').data('count'), $(this).data('value'))
+		ajax_call('', $(this).data('value'))
 	};
 
 	$(".keyword-link").click(reload_keywords);
@@ -55,7 +55,7 @@ ready = function() {
 
 	$("#search_btn").click(function()
 	{
-		ajax_call($('#parameters').data('count'), $("#query_text").val());
+		ajax_call('', $("#query_text").val());
 	});
 };
 
